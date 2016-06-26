@@ -7,7 +7,14 @@ public class Imagen {
 	private BufferedImage imagenOriginal;
 
 	public Imagen(BufferedImage imagenOriginal) {
+		validarImagenOriginal(imagenOriginal);
 		this.imagenOriginal = imagenOriginal;
+	}
+
+	private void validarImagenOriginal(BufferedImage imagenOriginal) {
+		if (imagenOriginal == null) {
+			throw new IllegalArgumentException("La imagen es necesaria.");
+		}
 	}
 
 	public BufferedImage clonarEsqueleto() {

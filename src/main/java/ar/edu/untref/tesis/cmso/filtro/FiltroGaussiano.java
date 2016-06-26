@@ -20,12 +20,14 @@ public class FiltroGaussiano implements Filtro {
 
 	public FiltroGaussiano(GeneradorMascara generadorMascara, int sigma,
 			FabricaKernel fabricaKernel) {
+		validarConstruccion(generadorMascara, sigma, fabricaKernel);
 		mascaraFiltro = generadorMascara.generar(sigma);
 		kernel = fabricaKernel.construir(mascaraFiltro);
 	}
 
 	@Override
 	public Imagen aplicar(Imagen imagen) {
+		validarImagen(imagen);
 		BufferedImage clonada = imagen.clonarEsqueleto();
 		filtrar(imagen.getImagenOriginal(), clonada);
 		return new Imagen(clonada);
@@ -86,18 +88,47 @@ public class FiltroGaussiano implements Filtro {
 					float acumulado = regionFiltro.acumularTemporal(
 							valoresMascara, matrizTemporal);
 
-					float acumuladoModificado = ((((float) valorMaximo[banda]) / (extremos
-							.getMaximo() - extremos.getMinimo())) * acumulado)
-							- ((extremos.getMinimo() * (float) valorMaximo[banda]) / (extremos
-									.getMaximo() - extremos.getMinimo()));
+					float acumuladoActualizado = actualizarValorAcumulado(
+							valorMaximo, extremos, banda, acumulado);
 
-					imagenDestino.setSample(x + kernel.getXOrigin(),
-							y + kernel.getYOrigin(), banda, acumuladoModificado);
+					actualizarImagenDestino(imagenDestino, x, y, banda,
+							acumuladoActualizado);
 				}
 			}
 		}
 
 		return imagenDestino;
+	}
+
+	private float actualizarValorAcumulado(int[] valorMaximo,
+			ExtremosRegion extremos, int banda, float acumulado) {
+		return ((((float) valorMaximo[banda]) / (extremos.getMaximo() - extremos
+				.getMinimo())) * acumulado)
+				- ((extremos.getMinimo() * (float) valorMaximo[banda]) / (extremos
+						.getMaximo() - extremos.getMinimo()));
+	}
+
+	private void actualizarImagenDestino(WritableRaster imagenDestino, int x,
+			int y, int banda, float acumuladoActualizado) {
+		imagenDestino.setSample(x + kernel.getXOrigin(),
+				y + kernel.getYOrigin(), banda, acumuladoActualizado);
+	}
+	
+	private void validarImagen(Imagen imagen) {
+		if (imagen == null || imagen.getImagenOriginal() == null) {
+			throw new IllegalArgumentException("La imagen es necesaria para aplicarle el filtro gaussiano");
+		}
+	}
+
+	private void validarConstruccion(GeneradorMascara generadorMascara, int sigma,
+			FabricaKernel fabricaKernel) {
+		if (generadorMascara == null || fabricaKernel == null) {
+			throw new IllegalArgumentException(
+					"Debe tener generador y fabrica de kernel para poder aplicar el filtro gaussiano.");
+		}
+		if (sigma < 0) {
+			throw new IllegalArgumentException("El sigma debe ser mayor que 0");
+		}
 	}
 
 }

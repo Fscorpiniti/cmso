@@ -56,9 +56,8 @@ public class RegionFiltro {
 	public int getAlto() {
 		return alto;
 	}
-	
-	public float acumularTemporal(float[] valoresMascara,
-			float[] matrizTemporal) {
+
+	public float acumularTemporal(float[] valoresMascara, float[] matrizTemporal) {
 		float acumulado = 0;
 		for (int i = 0; i < matrizTemporal.length; i++) {
 			acumulado += matrizTemporal[matrizTemporal.length - i - 1]

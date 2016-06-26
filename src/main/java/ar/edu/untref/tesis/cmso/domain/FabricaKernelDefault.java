@@ -6,6 +6,7 @@ public class FabricaKernelDefault implements FabricaKernel {
 
 	@Override
 	public Kernel construir(MascaraFiltro mascaraFiltro) {
+		validarMascaraFiltro(mascaraFiltro);
 		int ancho = mascaraFiltro.getAncho();
 		int alto = mascaraFiltro.getAlto();
 		float filtroKernel[] = new float[ancho * alto];
@@ -18,5 +19,12 @@ public class FabricaKernelDefault implements FabricaKernel {
 
 		return new Kernel(ancho, alto, filtroKernel);
 	}
-	
+
+	private void validarMascaraFiltro(MascaraFiltro mascaraFiltro) {
+		if (mascaraFiltro == null) {
+			throw new IllegalArgumentException(
+					"La mascara del filtro es un dato obligatorio para construir un kernel");
+		}
+	}
+
 }

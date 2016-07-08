@@ -17,17 +17,20 @@ public class FiltroGaussiano implements Filtro {
 	public static final int PIXELES_BORDE_EN_CERO = 0;
 	private Kernel kernel;
 	private MascaraFiltro mascaraFiltro;
+	private GeneradorMascara generadorMascara;
+	private FabricaKernel fabricaKernel;
 
-	public FiltroGaussiano(GeneradorMascara generadorMascara, int sigma,
-			FabricaKernel fabricaKernel) {
-		validarConstruccion(generadorMascara, sigma, fabricaKernel);
-		mascaraFiltro = generadorMascara.generar(sigma);
-		kernel = fabricaKernel.construir(mascaraFiltro);
+	public FiltroGaussiano(GeneradorMascara generadorMascara, FabricaKernel fabricaKernel) {
+		this.generadorMascara = generadorMascara;
+		this.fabricaKernel = fabricaKernel;
+		validarConstruccion();
 	}
 
 	@Override
-	public Imagen aplicar(Imagen imagen) {
-		validarImagen(imagen);
+	public Imagen aplicar(Imagen imagen, int sigma) {
+		validarParametrosObligatorios(sigma, imagen);
+		mascaraFiltro = generadorMascara.generar(sigma);
+		kernel = fabricaKernel.construir(mascaraFiltro);
 		BufferedImage clonada = imagen.clonarEsqueleto();
 		filtrar(imagen.getImagenOriginal(), clonada);
 		return new Imagen(clonada);
@@ -113,21 +116,25 @@ public class FiltroGaussiano implements Filtro {
 		imagenDestino.setSample(x + kernel.getXOrigin(),
 				y + kernel.getYOrigin(), banda, acumuladoActualizado);
 	}
-	
+
 	private void validarImagen(Imagen imagen) {
 		if (imagen == null || imagen.getImagenOriginal() == null) {
-			throw new IllegalArgumentException("La imagen es necesaria para aplicarle el filtro gaussiano");
+			throw new IllegalArgumentException(
+					"La imagen es necesaria para aplicarle el filtro gaussiano");
 		}
 	}
 
-	private void validarConstruccion(GeneradorMascara generadorMascara, int sigma,
-			FabricaKernel fabricaKernel) {
-		if (generadorMascara == null || fabricaKernel == null) {
-			throw new IllegalArgumentException(
-					"Debe tener generador y fabrica de kernel para poder aplicar el filtro gaussiano.");
-		}
+	private void validarParametrosObligatorios(int sigma, Imagen imagen) {
 		if (sigma < 0) {
 			throw new IllegalArgumentException("El sigma debe ser mayor que 0");
+		}
+		validarImagen(imagen);
+	}
+
+	private void validarConstruccion() {
+		if (generadorMascara == null || fabricaKernel == null) {
+			throw new IllegalArgumentException(
+					"Debe tener generador y fabrica kernel para poder aplicar el filtro gaussiano.");
 		}
 	}
 

@@ -6,6 +6,7 @@ public class GeneradorMascaraGaussiano implements GeneradorMascara {
 
 	private int[] dimensiones = { 3, 5, 9, 13, 15, 19 };
 
+	@Override
 	public MascaraFiltro generar(int sigma) {
 		int dimension = dimensiones[sigma - 1];
 		float[][] mascara = inicializarMascara(dimension);

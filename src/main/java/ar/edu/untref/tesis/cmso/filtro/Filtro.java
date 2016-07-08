@@ -4,6 +4,6 @@ import ar.edu.untref.tesis.cmso.domain.Imagen;
 
 public interface Filtro {
 
-	Imagen aplicar(Imagen imagen, int sigma);
+	Imagen aplicar(Imagen imagen, Double sigma);
 
 }

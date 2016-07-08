@@ -5,8 +5,9 @@ public class ImagenOctava {
 	private Imagen imagen;
 	private Double sigma;
 	
-	public ImagenOctava(Imagen imagen) {
+	public ImagenOctava(Imagen imagen, Double sigma) {
 		this.imagen = imagen;
+		this.sigma = sigma;
 	}
 	
 	public Imagen getImagen() {
@@ -17,8 +18,4 @@ public class ImagenOctava {
 		return sigma;
 	}
 
-	public void setSigma(Double sigma) {
-		this.sigma = sigma;
-	}
-	
 }

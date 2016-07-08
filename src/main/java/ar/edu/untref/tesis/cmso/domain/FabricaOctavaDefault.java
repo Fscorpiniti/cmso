@@ -12,23 +12,23 @@ public class FabricaOctavaDefault implements FabricaOctava {
 			int cantidadDiferenciasGaussianas, Filtro filtro) {
 
 		Integer cantidadPisos = cantidadDiferenciasGaussianas + 2;
+		Imagen originalFiltrada = filtro.aplicar(imagen, sigma);
 		List<ImagenOctava> imagenesOctava = Arrays.asList(new ImagenOctava(
-				imagen));
+				originalFiltrada, sigma));
 
-		double sigmaIteracion = sigma;
 		for (int piso = 1; piso < cantidadPisos; piso++) {
-			Imagen imagenPisoAnterior = imagenesOctava.get(piso - 1)
+			Double sigmaIteracion = sigma
+					* Math.pow(2, piso / cantidadDiferenciasGaussianas);
+
+			int pisoAnterior = piso - 1;
+			Imagen imagenPisoAnterior = imagenesOctava.get(pisoAnterior)
 					.getImagen();
 
-			Imagen imagenFiltrada = filtro.aplicar(imagenPisoAnterior,
-					(int) sigmaIteracion);
-			
-			ImagenOctava imagenOctava = new ImagenOctava(imagenFiltrada);
-			imagenOctava.setSigma(sigma);
-			
-			imagenesOctava.add(imagenOctava);
+			Imagen imagenIteracionFiltrada = filtro.aplicar(imagenPisoAnterior,
+					sigmaIteracion);
 
-			sigmaIteracion = Math.pow(2, piso / cantidadDiferenciasGaussianas);
+			imagenesOctava.add(new ImagenOctava(imagenIteracionFiltrada,
+					sigmaIteracion));
 		}
 
 		return new Octava(imagenesOctava);

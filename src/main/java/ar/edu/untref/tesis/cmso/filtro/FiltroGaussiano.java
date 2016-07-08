@@ -27,9 +27,9 @@ public class FiltroGaussiano implements Filtro {
 	}
 
 	@Override
-	public Imagen aplicar(Imagen imagen, int sigma) {
+	public Imagen aplicar(Imagen imagen, Double sigma) {
 		validarParametrosObligatorios(sigma, imagen);
-		mascaraFiltro = generadorMascara.generar(sigma);
+		mascaraFiltro = generadorMascara.generar(sigma.intValue());
 		kernel = fabricaKernel.construir(mascaraFiltro);
 		BufferedImage clonada = imagen.clonarEsqueleto();
 		filtrar(imagen.getImagenOriginal(), clonada);
@@ -124,7 +124,7 @@ public class FiltroGaussiano implements Filtro {
 		}
 	}
 
-	private void validarParametrosObligatorios(int sigma, Imagen imagen) {
+	private void validarParametrosObligatorios(Double sigma, Imagen imagen) {
 		if (sigma < 0) {
 			throw new IllegalArgumentException("El sigma debe ser mayor que 0");
 		}

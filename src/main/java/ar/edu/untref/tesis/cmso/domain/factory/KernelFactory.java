@@ -1,6 +1,8 @@
-package ar.edu.untref.tesis.cmso.domain;
+package ar.edu.untref.tesis.cmso.domain.factory;
 
 import java.awt.image.Kernel;
+
+import ar.edu.untref.tesis.cmso.domain.FilterMask;
 
 public interface KernelFactory {
 

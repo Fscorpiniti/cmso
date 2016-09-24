@@ -2,36 +2,36 @@ package ar.edu.untref.tesis.cmso.domain;
 
 public class OctaveImage {
 
-	private Image imagen;
+	private Image image;
 	private Double sigma;
 
-	public OctaveImage(Image imagen, Double sigma) {
-		this.imagen = imagen;
+	public OctaveImage(Image image, Double sigma) {
+		this.image = image;
 		this.sigma = sigma;
 	}
 
-	public Image getImagen() {
-		return imagen;
+	public Image getImage() {
+		return image;
 	}
 
 	public Double getSigma() {
 		return sigma;
 	}
 
-	public Boolean esExtremo(int pixel, int fila, int columna, boolean esValido) {
-		Boolean resultado = esValido;
-		if (esValido) {
-			resultado &= imagen.obtenerPunto(fila - 1, columna - 1) < pixel;
-			resultado &= imagen.obtenerPunto(fila - 1, columna) < pixel;
-			resultado &= imagen.obtenerPunto(fila - 1, columna + 1) < pixel;
-			resultado &= imagen.obtenerPunto(fila, columna - 1) < pixel;
-			resultado &= imagen.obtenerPunto(fila, columna) < pixel;
-			resultado &= imagen.obtenerPunto(fila, columna + 1) < pixel;
-			resultado &= imagen.obtenerPunto(fila + 1, columna - 1) < pixel;
-			resultado &= imagen.obtenerPunto(fila + 1, columna) < pixel;
-			resultado &= imagen.obtenerPunto(fila + 1, columna + 1) < pixel;
+	public Boolean isExtreme(int pixel, int row, int column, boolean isValid) {
+		Boolean result = isValid;
+		if (isValid) {
+			result &= image.getPoint(row - 1, column - 1) < pixel;
+			result &= image.getPoint(row - 1, column) < pixel;
+			result &= image.getPoint(row - 1, column + 1) < pixel;
+			result &= image.getPoint(row, column - 1) < pixel;
+			result &= image.getPoint(row, column) < pixel;
+			result &= image.getPoint(row, column + 1) < pixel;
+			result &= image.getPoint(row + 1, column - 1) < pixel;
+			result &= image.getPoint(row + 1, column) < pixel;
+			result &= image.getPoint(row + 1, column + 1) < pixel;
 		}
-		return resultado;
+		return result;
 	}
 
 }

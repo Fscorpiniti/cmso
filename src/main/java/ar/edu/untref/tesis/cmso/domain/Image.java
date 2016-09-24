@@ -4,38 +4,38 @@ import java.awt.image.BufferedImage;
 
 public class Image {
 
-	private int[][] imagenOriginal;
+	private int[][] originalImage;
 	private int type;
 	private int width;
 	private int height;
 
-	public Image(BufferedImage imagenOriginal) {
-		validarImagenOriginal(imagenOriginal);
-		this.type = imagenOriginal.getType();
-		this.width = imagenOriginal.getWidth();
-		this.height = imagenOriginal.getHeight();
-		this.imagenOriginal = convertirImagenEnMatriz(imagenOriginal);
+	public Image(BufferedImage originalImage) {
+		validateOriginalImage(originalImage);
+		this.type = originalImage.getType();
+		this.width = originalImage.getWidth();
+		this.height = originalImage.getHeight();
+		this.originalImage = convertImageToMatrix(originalImage);
 	}
 
-	public int[][] convertirImagenEnMatriz(BufferedImage imagen) {
-		int[][] matriz = new int[imagen.getWidth()][imagen.getHeight()];
-		for (int i = 0; i < imagen.getWidth(); i++) {
-			for (int j = 0; j < imagen.getHeight(); j++) {
-				int rgb = imagen.getRGB(i, j);
+	public int[][] convertImageToMatrix(BufferedImage image) {
+		int[][] matrix = new int[image.getWidth()][image.getHeight()];
+		for (int i = 0; i < image.getWidth(); i++) {
+			for (int j = 0; j < image.getHeight(); j++) {
+				int rgb = image.getRGB(i, j);
 				int red = 0xff & (rgb >> 16);
-				matriz[i][j] = red;
+				matrix[i][j] = red;
 			}
 		}
-		return matriz;
+		return matrix;
 	}
 
-	public BufferedImage convertirMatrizEnImagen(int[][] matriz, int ancho,
-			int alto) {
-		BufferedImage bufferedImage = new BufferedImage(ancho, alto,
+	public BufferedImage convertMatrixToImage(int[][] matrix, int width,
+			int height) {
+		BufferedImage bufferedImage = new BufferedImage(width, height,
 				BufferedImage.TYPE_3BYTE_BGR);
-		for (int i = 0; i < ancho; i++) {
-			for (int j = 0; j < alto; j++) {
-				int pixel = matriz[i][j];
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				int pixel = matrix[i][j];
 				colorToRGB(0, pixel, pixel, pixel);
 				bufferedImage.setRGB(i, j, colorToRGB(0, pixel, pixel, pixel));
 			}
@@ -43,13 +43,13 @@ public class Image {
 		return bufferedImage;
 	}
 
-	public BufferedImage clonarEsqueleto() {
-		return new BufferedImage(getImagenOriginal().getWidth(),
-				getImagenOriginal().getHeight(), getImagenOriginal().getType());
+	public BufferedImage cloneSkeleton() {
+		return new BufferedImage(getOriginalImage().getWidth(),
+				getOriginalImage().getHeight(), getOriginalImage().getType());
 	}
 
-	public BufferedImage getImagenOriginal() {
-		return convertirMatrizEnImagen(imagenOriginal, width, height);
+	public BufferedImage getOriginalImage() {
+		return convertMatrixToImage(originalImage, width, height);
 	}
 
 	public int getWidth() {
@@ -64,12 +64,12 @@ public class Image {
 		return type;
 	}
 
-	public int obtenerPunto(int fila, int columna) {
-		return imagenOriginal[fila][columna];
+	public int getPoint(int row, int column) {
+		return originalImage[row][column];
 	}
 
-	public void setearPunto(int fila, int columna, int valor) {
-		imagenOriginal[fila][columna] = valor;
+	public void setPoint(int fila, int column, int value) {
+		originalImage[fila][column] = value;
 	}
 
 	private int colorToRGB(int alpha, int red, int green, int blue) {
@@ -83,8 +83,8 @@ public class Image {
 		newPixel += blue;
 		return newPixel;
 	}
-	
-	private void validarImagenOriginal(BufferedImage imagenOriginal) {
+
+	private void validateOriginalImage(BufferedImage imagenOriginal) {
 		if (imagenOriginal == null) {
 			throw new IllegalArgumentException("La imagen es necesaria.");
 		}

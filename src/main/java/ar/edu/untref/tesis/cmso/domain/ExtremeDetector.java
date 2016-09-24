@@ -16,7 +16,7 @@ public class ExtremeDetector {
 	public List<ScaleSpacePoint> detect() {
 		List<ScaleSpacePoint> points = new ArrayList<>();
 		for (Octave octave : scaleSpace.getOctaves()) {
-			List<OctaveImage> octaveImages = octave.getImagenesOctava();
+			List<OctaveImage> octaveImages = octave.getOctaveImages();
 			for (int i = 1; i < octaveImages.size() - 1; i++) {
 				points.addAll(findExtreme(octaveImages, i));
 			}
@@ -32,13 +32,13 @@ public class ExtremeDetector {
 		OctaveImage center = octaveImages.get(centerOctavePosition);
 		OctaveImage lower = octaveImages.get(centerOctavePosition - 1);
 
-		for (int row = 1; row < center.getImagen().getHeight(); row++) {
-			for (int column = 1; column < center.getImagen().getWidth(); column++) {
-				int pixel = center.getImagen().obtenerPunto(row, column);
-				Boolean isTopExtreme = top.esExtremo(pixel, row, column, true);
-				Boolean isCenterExtreme = center.esExtremo(pixel, row, column,
+		for (int row = 1; row < center.getImage().getHeight(); row++) {
+			for (int column = 1; column < center.getImage().getWidth(); column++) {
+				int pixel = center.getImage().getPoint(row, column);
+				Boolean isTopExtreme = top.isExtreme(pixel, row, column, true);
+				Boolean isCenterExtreme = center.isExtreme(pixel, row, column,
 						isTopExtreme);
-				Boolean isLowerExtreme = lower.esExtremo(pixel, row, column,
+				Boolean isLowerExtreme = lower.isExtreme(pixel, row, column,
 						isCenterExtreme);
 
 				if (isCenterExtreme && isLowerExtreme && isTopExtreme) {

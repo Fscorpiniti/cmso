@@ -7,8 +7,8 @@ public class ScaleSpacePoint {
 	private Point point;
 	private OctaveImage octaveImage;
 	
-	public ScaleSpacePoint(Point punto, OctaveImage octaveImage) {
-		this.point = punto;
+	public ScaleSpacePoint(Point point, OctaveImage octaveImage) {
+		this.point = point;
 		this.octaveImage = octaveImage;
 	}
 

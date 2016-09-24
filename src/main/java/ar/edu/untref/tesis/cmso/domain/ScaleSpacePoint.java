@@ -4,20 +4,20 @@ import java.awt.Point;
 
 public class ScaleSpacePoint {
 
-	private Point punto;
-	private OctaveImage imagenOctava;
+	private Point point;
+	private OctaveImage octaveImage;
 	
-	public ScaleSpacePoint(Point punto, OctaveImage imagenOctava) {
-		this.punto = punto;
-		this.imagenOctava = imagenOctava;
+	public ScaleSpacePoint(Point punto, OctaveImage octaveImage) {
+		this.point = punto;
+		this.octaveImage = octaveImage;
 	}
 
-	public Point getPunto() {
-		return punto;
+	public Point getPoint() {
+		return point;
 	}
 
-	public OctaveImage getImagenOctava() {
-		return imagenOctava;
+	public OctaveImage getOctaveImage() {
+		return octaveImage;
 	}
 
 }

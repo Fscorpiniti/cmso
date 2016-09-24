@@ -6,7 +6,7 @@ import java.awt.image.Kernel;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 
-import ar.edu.untref.tesis.cmso.domain.ExtremosRegion;
+import ar.edu.untref.tesis.cmso.domain.RegionExtremes;
 import ar.edu.untref.tesis.cmso.domain.KernelFactory;
 import ar.edu.untref.tesis.cmso.domain.Image;
 import ar.edu.untref.tesis.cmso.domain.FilterMask;
@@ -20,7 +20,8 @@ public class FiltroGaussiano implements Filter {
 	private MaskGenerator generadorMascara;
 	private KernelFactory fabricaKernel;
 
-	public FiltroGaussiano(MaskGenerator generadorMascara, KernelFactory fabricaKernel) {
+	public FiltroGaussiano(MaskGenerator generadorMascara,
+			KernelFactory fabricaKernel) {
 		this.generadorMascara = generadorMascara;
 		this.fabricaKernel = fabricaKernel;
 		validarConstruccion();
@@ -81,7 +82,7 @@ public class FiltroGaussiano implements Filter {
 				* mascaraFiltro.getHeight()];
 
 		RegionFiltro regionFiltro = new RegionFiltro(kernel, imagenInicial);
-		ExtremosRegion extremos = regionFiltro.calcularExtremos();
+		RegionExtremes extremos = regionFiltro.calcularExtremos();
 
 		for (int x = 0; x < regionFiltro.getAncho(); x++) {
 			for (int y = 0; y < regionFiltro.getAlto(); y++) {
@@ -104,11 +105,11 @@ public class FiltroGaussiano implements Filter {
 	}
 
 	private float actualizarValorAcumulado(int[] valorMaximo,
-			ExtremosRegion extremos, int banda, float acumulado) {
-		return ((((float) valorMaximo[banda]) / (extremos.getMaximo() - extremos
-				.getMinimo())) * acumulado)
-				- ((extremos.getMinimo() * (float) valorMaximo[banda]) / (extremos
-						.getMaximo() - extremos.getMinimo()));
+			RegionExtremes extremos, int banda, float acumulado) {
+		return ((((float) valorMaximo[banda]) / (extremos.getMaximum() - extremos
+				.getMinimum())) * acumulado)
+				- ((extremos.getMinimum() * (float) valorMaximo[banda]) / (extremos
+						.getMaximum() - extremos.getMinimum()));
 	}
 
 	private void actualizarImagenDestino(WritableRaster imagenDestino, int x,

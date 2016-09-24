@@ -21,7 +21,7 @@ public class RegionFiltro {
 		this.alto = imagen.getHeight() - arriba - abajo;
 	}
 
-	public ExtremosRegion calcularExtremos() {
+	public RegionExtremes calcularExtremos() {
 		float maximo = 0;
 		float minimo = 0;
 		float[] valoresMascara = kernel.getKernelData(null);
@@ -46,7 +46,7 @@ public class RegionFiltro {
 			}
 		}
 
-		return new ExtremosRegion(maximo, minimo);
+		return new RegionExtremes(maximo, minimo);
 	}
 
 	public int getAncho() {

@@ -4,20 +4,20 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.edu.untref.tesis.cmso.filtro.Filtro;
+import ar.edu.untref.tesis.cmso.filtro.Filter;
 
 public class FabricaEspacioEscalaDefault implements FabricaEspacioEscala {
 
 	@Override
-	public EspacioEscala construir(Filtro filtro, Imagen imagen, Double sigma,
+	public EspacioEscala construir(Filter filtro, Imagen imagen, Double sigma,
 			int cantidadDiferenciasGaussianas) {
-		FabricaOctava fabricaOctava = new FabricaOctavaDefault();
-		List<Octava> octavas = new ArrayList<>();
+		OctaveFactory fabricaOctava = new FabricaOctavaDefault();
+		List<Octave> octavas = new ArrayList<>();
 		BufferedImage imagenIteracion = imagen.getImagenOriginal();
 
 		while (imagenIteracion.getWidth() > 0
 				&& imagenIteracion.getHeight() > 0) {
-			Octava octava = fabricaOctava.construir(imagen, sigma,
+			Octave octava = fabricaOctava.construir(imagen, sigma,
 					cantidadDiferenciasGaussianas, filtro);
 			octavas.add(octava);
 

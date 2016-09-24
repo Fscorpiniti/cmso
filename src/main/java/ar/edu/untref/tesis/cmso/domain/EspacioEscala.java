@@ -5,13 +5,13 @@ import java.util.List;
 
 public class EspacioEscala {
 
-	private List<Octava> octavas = new ArrayList<>();
+	private List<Octave> octavas = new ArrayList<>();
 	
-	public EspacioEscala (List<Octava>octavas) {
+	public EspacioEscala (List<Octave>octavas) {
 		this.octavas = octavas;
 	}
 
-	public List<Octava> getOctavas() {
+	public List<Octave> getOctavas() {
 		return octavas;
 	}
 

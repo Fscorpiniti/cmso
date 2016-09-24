@@ -2,11 +2,11 @@ package ar.edu.untref.tesis.cmso.domain;
 
 import java.util.List;
 
-public class Octava {
+public class Octave {
 
 	private List<ImagenOctava> imagenesOctava;
 	
-	public Octava(List<ImagenOctava> imagenesOctava) {
+	public Octave(List<ImagenOctava> imagenesOctava) {
 		this.imagenesOctava = imagenesOctava;
 	}
 	

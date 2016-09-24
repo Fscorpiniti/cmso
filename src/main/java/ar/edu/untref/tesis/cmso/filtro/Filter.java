@@ -2,8 +2,8 @@ package ar.edu.untref.tesis.cmso.filtro;
 
 import ar.edu.untref.tesis.cmso.domain.Imagen;
 
-public interface Filtro {
+public interface Filter {
 
-	Imagen aplicar(Imagen imagen, Double sigma);
+	Imagen apply(Imagen imagen, Double sigma);
 
 }

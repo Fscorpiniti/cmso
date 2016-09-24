@@ -1,17 +1,17 @@
 package ar.edu.untref.tesis.cmso.filtro;
 
-import ar.edu.untref.tesis.cmso.domain.MascaraFiltro;
+import ar.edu.untref.tesis.cmso.domain.FilterMask;
 
 public class GeneradorMascaraGaussiano implements GeneradorMascara {
 
 	private int[] dimensiones = { 3, 5, 9, 13, 15, 19 };
 
 	@Override
-	public MascaraFiltro generar(int sigma) {
+	public FilterMask generar(int sigma) {
 		int dimension = dimensiones[sigma - 1];
 		float[][] mascara = inicializarMascara(dimension);
 		this.completarMascara(sigma, dimension, mascara);
-		return new MascaraFiltro(mascara);
+		return new FilterMask(mascara);
 	}
 
 	private void completarMascara(int sigma, int dimension, float[][] mascara) {

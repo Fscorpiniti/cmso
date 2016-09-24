@@ -4,6 +4,6 @@ import java.awt.image.Kernel;
 
 public interface FabricaKernel {
 
-	Kernel construir(MascaraFiltro mascaraFiltro);
+	Kernel construir(FilterMask mascaraFiltro);
 	
 }

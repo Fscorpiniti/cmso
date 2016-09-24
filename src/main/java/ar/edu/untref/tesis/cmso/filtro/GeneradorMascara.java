@@ -1,9 +1,9 @@
 package ar.edu.untref.tesis.cmso.filtro;
 
-import ar.edu.untref.tesis.cmso.domain.MascaraFiltro;
+import ar.edu.untref.tesis.cmso.domain.FilterMask;
 
 public interface GeneradorMascara {
 
-	MascaraFiltro generar(int sigma);
+	FilterMask generar(int sigma);
 	
 }

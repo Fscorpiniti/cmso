@@ -3,16 +3,16 @@ package ar.edu.untref.tesis.cmso.domain;
 import java.util.Arrays;
 import java.util.List;
 
-import ar.edu.untref.tesis.cmso.filtro.Filtro;
+import ar.edu.untref.tesis.cmso.filtro.Filter;
 
-public class FabricaOctavaDefault implements FabricaOctava {
+public class FabricaOctavaDefault implements OctaveFactory {
 
 	@Override
-	public Octava construir(Imagen imagen, Double sigma,
-			int cantidadDiferenciasGaussianas, Filtro filtro) {
+	public Octave construir(Imagen imagen, Double sigma,
+			int cantidadDiferenciasGaussianas, Filter filtro) {
 
 		Integer cantidadPisos = cantidadDiferenciasGaussianas + 2;
-		Imagen originalFiltrada = filtro.aplicar(imagen, sigma);
+		Imagen originalFiltrada = filtro.apply(imagen, sigma);
 		List<ImagenOctava> imagenesOctava = Arrays.asList(new ImagenOctava(
 				originalFiltrada, sigma));
 
@@ -24,14 +24,14 @@ public class FabricaOctavaDefault implements FabricaOctava {
 			Imagen imagenPisoAnterior = imagenesOctava.get(pisoAnterior)
 					.getImagen();
 
-			Imagen imagenIteracionFiltrada = filtro.aplicar(imagenPisoAnterior,
+			Imagen imagenIteracionFiltrada = filtro.apply(imagenPisoAnterior,
 					sigmaIteracion);
 
 			imagenesOctava.add(new ImagenOctava(imagenIteracionFiltrada,
 					sigmaIteracion));
 		}
 
-		return new Octava(imagenesOctava);
+		return new Octave(imagenesOctava);
 	}
 
 }

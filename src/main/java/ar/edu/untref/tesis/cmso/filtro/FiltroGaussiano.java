@@ -9,14 +9,14 @@ import java.awt.image.WritableRaster;
 import ar.edu.untref.tesis.cmso.domain.ExtremosRegion;
 import ar.edu.untref.tesis.cmso.domain.FabricaKernel;
 import ar.edu.untref.tesis.cmso.domain.Imagen;
-import ar.edu.untref.tesis.cmso.domain.MascaraFiltro;
+import ar.edu.untref.tesis.cmso.domain.FilterMask;
 import ar.edu.untref.tesis.cmso.domain.RegionFiltro;
 
-public class FiltroGaussiano implements Filtro {
+public class FiltroGaussiano implements Filter {
 
 	public static final int PIXELES_BORDE_EN_CERO = 0;
 	private Kernel kernel;
-	private MascaraFiltro mascaraFiltro;
+	private FilterMask mascaraFiltro;
 	private GeneradorMascara generadorMascara;
 	private FabricaKernel fabricaKernel;
 
@@ -27,7 +27,7 @@ public class FiltroGaussiano implements Filtro {
 	}
 
 	@Override
-	public Imagen aplicar(Imagen imagen, Double sigma) {
+	public Imagen apply(Imagen imagen, Double sigma) {
 		validarParametrosObligatorios(sigma, imagen);
 		mascaraFiltro = generadorMascara.generar(sigma.intValue());
 		kernel = fabricaKernel.construir(mascaraFiltro);
@@ -77,8 +77,8 @@ public class FiltroGaussiano implements Filtro {
 			valorMaximo[i] = (int) Math.pow(2, valorMaximo[i]) - 1;
 		}
 		float[] valoresMascara = kernel.getKernelData(null);
-		float[] matrizTemporal = new float[mascaraFiltro.getAncho()
-				* mascaraFiltro.getAlto()];
+		float[] matrizTemporal = new float[mascaraFiltro.getWidth()
+				* mascaraFiltro.getHeight()];
 
 		RegionFiltro regionFiltro = new RegionFiltro(kernel, imagenInicial);
 		ExtremosRegion extremos = regionFiltro.calcularExtremos();
@@ -86,8 +86,8 @@ public class FiltroGaussiano implements Filtro {
 		for (int x = 0; x < regionFiltro.getAncho(); x++) {
 			for (int y = 0; y < regionFiltro.getAlto(); y++) {
 				for (int banda = 0; banda < imagenInicial.getNumBands(); banda++) {
-					imagenInicial.getSamples(x, y, mascaraFiltro.getAncho(),
-							mascaraFiltro.getAlto(), banda, matrizTemporal);
+					imagenInicial.getSamples(x, y, mascaraFiltro.getWidth(),
+							mascaraFiltro.getHeight(), banda, matrizTemporal);
 					float acumulado = regionFiltro.acumularTemporal(
 							valoresMascara, matrizTemporal);
 

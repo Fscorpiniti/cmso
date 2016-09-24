@@ -4,13 +4,13 @@ import java.util.List;
 
 public class Octave {
 
-	private List<ImagenOctava> imagenesOctava;
+	private List<OctaveImage> imagenesOctava;
 	
-	public Octave(List<ImagenOctava> imagenesOctava) {
+	public Octave(List<OctaveImage> imagenesOctava) {
 		this.imagenesOctava = imagenesOctava;
 	}
 	
-	public List<ImagenOctava> getImagenesOctava() {
+	public List<OctaveImage> getImagenesOctava() {
 		return imagenesOctava;
 	}
 

@@ -2,8 +2,8 @@ package ar.edu.untref.tesis.cmso.domain;
 
 import java.awt.image.Kernel;
 
-public interface FabricaKernel {
+public interface KernelFactory {
 
-	Kernel construir(FilterMask mascaraFiltro);
+	Kernel build(FilterMask filterMask);
 	
 }

@@ -2,14 +2,14 @@ package ar.edu.untref.tesis.cmso.domain;
 
 import java.awt.image.BufferedImage;
 
-public class Imagen {
+public class Image {
 
 	private int[][] imagenOriginal;
 	private int type;
 	private int width;
 	private int height;
 
-	public Imagen(BufferedImage imagenOriginal) {
+	public Image(BufferedImage imagenOriginal) {
 		validarImagenOriginal(imagenOriginal);
 		this.type = imagenOriginal.getType();
 		this.width = imagenOriginal.getWidth();

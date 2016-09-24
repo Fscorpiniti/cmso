@@ -1,16 +1,16 @@
 package ar.edu.untref.tesis.cmso.domain;
 
-public class ImagenOctava {
+public class OctaveImage {
 
-	private Imagen imagen;
+	private Image imagen;
 	private Double sigma;
 
-	public ImagenOctava(Imagen imagen, Double sigma) {
+	public OctaveImage(Image imagen, Double sigma) {
 		this.imagen = imagen;
 		this.sigma = sigma;
 	}
 
-	public Imagen getImagen() {
+	public Image getImagen() {
 		return imagen;
 	}
 

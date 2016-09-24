@@ -7,8 +7,8 @@ import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 
 import ar.edu.untref.tesis.cmso.domain.ExtremosRegion;
-import ar.edu.untref.tesis.cmso.domain.FabricaKernel;
-import ar.edu.untref.tesis.cmso.domain.Imagen;
+import ar.edu.untref.tesis.cmso.domain.KernelFactory;
+import ar.edu.untref.tesis.cmso.domain.Image;
 import ar.edu.untref.tesis.cmso.domain.FilterMask;
 import ar.edu.untref.tesis.cmso.domain.RegionFiltro;
 
@@ -17,23 +17,23 @@ public class FiltroGaussiano implements Filter {
 	public static final int PIXELES_BORDE_EN_CERO = 0;
 	private Kernel kernel;
 	private FilterMask mascaraFiltro;
-	private GeneradorMascara generadorMascara;
-	private FabricaKernel fabricaKernel;
+	private MaskGenerator generadorMascara;
+	private KernelFactory fabricaKernel;
 
-	public FiltroGaussiano(GeneradorMascara generadorMascara, FabricaKernel fabricaKernel) {
+	public FiltroGaussiano(MaskGenerator generadorMascara, KernelFactory fabricaKernel) {
 		this.generadorMascara = generadorMascara;
 		this.fabricaKernel = fabricaKernel;
 		validarConstruccion();
 	}
 
 	@Override
-	public Imagen apply(Imagen imagen, Double sigma) {
+	public Image apply(Image imagen, Double sigma) {
 		validarParametrosObligatorios(sigma, imagen);
-		mascaraFiltro = generadorMascara.generar(sigma.intValue());
-		kernel = fabricaKernel.construir(mascaraFiltro);
+		mascaraFiltro = generadorMascara.generate(sigma.intValue());
+		kernel = fabricaKernel.build(mascaraFiltro);
 		BufferedImage clonada = imagen.clonarEsqueleto();
 		filtrar(imagen.getImagenOriginal(), clonada);
-		return new Imagen(clonada);
+		return new Image(clonada);
 	}
 
 	private final BufferedImage filtrar(BufferedImage imagenOriginal,
@@ -117,14 +117,14 @@ public class FiltroGaussiano implements Filter {
 				y + kernel.getYOrigin(), banda, acumuladoActualizado);
 	}
 
-	private void validarImagen(Imagen imagen) {
+	private void validarImagen(Image imagen) {
 		if (imagen == null || imagen.getImagenOriginal() == null) {
 			throw new IllegalArgumentException(
 					"La imagen es necesaria para aplicarle el filtro gaussiano");
 		}
 	}
 
-	private void validarParametrosObligatorios(Double sigma, Imagen imagen) {
+	private void validarParametrosObligatorios(Double sigma, Image imagen) {
 		if (sigma < 0) {
 			throw new IllegalArgumentException("El sigma debe ser mayor que 0");
 		}

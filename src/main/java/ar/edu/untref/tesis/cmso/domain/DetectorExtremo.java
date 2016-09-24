@@ -7,16 +7,16 @@ import java.util.List;
 
 public class DetectorExtremo {
 
-	private EspacioEscala espacioEscala;
+	private ScaleSpace espacioEscala;
 
-	public DetectorExtremo(EspacioEscala espacioEscala) {
+	public DetectorExtremo(ScaleSpace espacioEscala) {
 		this.espacioEscala = espacioEscala;
 	}
 
-	public List<PuntoEspacioEscala> detectar() {
-		List<PuntoEspacioEscala> puntos = new ArrayList<>();
-		for (Octave octava : espacioEscala.getOctavas()) {
-			List<ImagenOctava> imagenesOctava = octava.getImagenesOctava();
+	public List<ScaleSpacePoint> detectar() {
+		List<ScaleSpacePoint> puntos = new ArrayList<>();
+		for (Octave octava : espacioEscala.getOctaves()) {
+			List<OctaveImage> imagenesOctava = octava.getImagenesOctava();
 			for (int i = 1; i < imagenesOctava.size() - 1; i++) {
 				puntos.addAll(buscarExtremos(imagenesOctava, i));
 			}
@@ -25,13 +25,13 @@ public class DetectorExtremo {
 		return puntos;
 	}
 
-	private Collection<? extends PuntoEspacioEscala> buscarExtremos(
-			List<ImagenOctava> imagenesOctava, int posicionOctavaCentral) {
+	private Collection<? extends ScaleSpacePoint> buscarExtremos(
+			List<OctaveImage> imagenesOctava, int posicionOctavaCentral) {
 
-		Collection<PuntoEspacioEscala> puntos = new ArrayList<>();
-		ImagenOctava superior = imagenesOctava.get(posicionOctavaCentral + 1);
-		ImagenOctava central = imagenesOctava.get(posicionOctavaCentral);
-		ImagenOctava inferior = imagenesOctava.get(posicionOctavaCentral - 1);
+		Collection<ScaleSpacePoint> puntos = new ArrayList<>();
+		OctaveImage superior = imagenesOctava.get(posicionOctavaCentral + 1);
+		OctaveImage central = imagenesOctava.get(posicionOctavaCentral);
+		OctaveImage inferior = imagenesOctava.get(posicionOctavaCentral - 1);
 
 		for (int fila = 1; fila < central.getImagen().getHeight(); fila++) {
 			for (int columna = 1; columna < central.getImagen().getWidth(); columna++) {
@@ -44,7 +44,7 @@ public class DetectorExtremo {
 						columna, esExtremoCentral);
 
 				if (esExtremoCentral && esExtremoInferior && esExtremoSuperior) {
-					puntos.add(new PuntoEspacioEscala(new Point(fila, columna),
+					puntos.add(new ScaleSpacePoint(new Point(fila, columna),
 							central));
 				}
 			}

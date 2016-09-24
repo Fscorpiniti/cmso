@@ -2,12 +2,12 @@ package ar.edu.untref.tesis.cmso.domain;
 
 import java.awt.Point;
 
-public class PuntoEspacioEscala {
+public class ScaleSpacePoint {
 
 	private Point punto;
-	private ImagenOctava imagenOctava;
+	private OctaveImage imagenOctava;
 	
-	public PuntoEspacioEscala(Point punto, ImagenOctava imagenOctava) {
+	public ScaleSpacePoint(Point punto, OctaveImage imagenOctava) {
 		this.punto = punto;
 		this.imagenOctava = imagenOctava;
 	}
@@ -16,7 +16,7 @@ public class PuntoEspacioEscala {
 		return punto;
 	}
 
-	public ImagenOctava getImagenOctava() {
+	public OctaveImage getImagenOctava() {
 		return imagenOctava;
 	}
 

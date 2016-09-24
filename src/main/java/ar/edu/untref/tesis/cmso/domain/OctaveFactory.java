@@ -4,7 +4,7 @@ import ar.edu.untref.tesis.cmso.filtro.Filter;
 
 public interface OctaveFactory {
 
-	Octave construir(Imagen imagen, Double sigma,
+	Octave construir(Image imagen, Double sigma,
 			int cantidadDiferenciasGaussianas, Filter filtro);
 
 }

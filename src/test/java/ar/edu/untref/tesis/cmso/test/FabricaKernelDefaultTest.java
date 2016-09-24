@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import ar.edu.untref.tesis.cmso.domain.FabricaKernelDefault;
+import ar.edu.untref.tesis.cmso.domain.KernelFactoryDefault;
 
 public class FabricaKernelDefaultTest {
 
@@ -14,7 +14,7 @@ public class FabricaKernelDefaultTest {
 	@Test
 	public void crearFabricaKernelDefaultConMascaraFiltroNullDeberiaLanzarExcepcion() {
 		exception.expect(IllegalArgumentException.class);
-		new FabricaKernelDefault().construir(null);
+		new KernelFactoryDefault().build(null);
 	}
 	
 }

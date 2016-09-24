@@ -2,10 +2,10 @@ package ar.edu.untref.tesis.cmso.domain;
 
 import java.awt.image.Kernel;
 
-public class FabricaKernelDefault implements FabricaKernel {
+public class KernelFactoryDefault implements KernelFactory {
 
 	@Override
-	public Kernel construir(FilterMask mascaraFiltro) {
+	public Kernel build(FilterMask mascaraFiltro) {
 		validarMascaraFiltro(mascaraFiltro);
 		int ancho = mascaraFiltro.getWidth();
 		int alto = mascaraFiltro.getHeight();

@@ -2,9 +2,9 @@ package ar.edu.untref.tesis.cmso.domain;
 
 import ar.edu.untref.tesis.cmso.filtro.Filter;
 
-public interface FabricaEspacioEscala {
+public interface ScaleSpaceFactory {
 
-	EspacioEscala construir(Filter filtro, Imagen imagen, Double sigma,
+	ScaleSpace construir(Filter filtro, Image imagen, Double sigma,
 			int cantidadDiferenciasGaussianas);
 
 }

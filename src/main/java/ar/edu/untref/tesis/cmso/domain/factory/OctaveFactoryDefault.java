@@ -6,7 +6,7 @@ import java.util.List;
 import ar.edu.untref.tesis.cmso.domain.Image;
 import ar.edu.untref.tesis.cmso.domain.Octave;
 import ar.edu.untref.tesis.cmso.domain.OctaveImage;
-import ar.edu.untref.tesis.cmso.filtro.Filter;
+import ar.edu.untref.tesis.cmso.filter.Filter;
 
 public class OctaveFactoryDefault implements OctaveFactory {
 

@@ -1,4 +1,4 @@
-package ar.edu.untref.tesis.cmso.filtro;
+package ar.edu.untref.tesis.cmso.filter;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;

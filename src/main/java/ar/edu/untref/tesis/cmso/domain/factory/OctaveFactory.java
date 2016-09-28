@@ -2,7 +2,7 @@ package ar.edu.untref.tesis.cmso.domain.factory;
 
 import ar.edu.untref.tesis.cmso.domain.Image;
 import ar.edu.untref.tesis.cmso.domain.Octave;
-import ar.edu.untref.tesis.cmso.filtro.Filter;
+import ar.edu.untref.tesis.cmso.filter.Filter;
 
 public interface OctaveFactory {
 

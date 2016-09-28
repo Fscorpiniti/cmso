@@ -1,4 +1,4 @@
-package ar.edu.untref.tesis.cmso.filtro;
+package ar.edu.untref.tesis.cmso.filter;
 
 import ar.edu.untref.tesis.cmso.domain.Image;
 
